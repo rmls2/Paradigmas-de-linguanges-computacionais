@@ -32,6 +32,14 @@ maiorInteiro x y
   |not(x >= y) = y
 
 maiorInteiro2 :: Int -> Int -> Int
-maiorInteiro2 x y
+maiorInteiro2  x y
   | x >= y    = x
   | otherwise = y
+
+
+fat:: Int -> Int
+
+fat n 
+    | n==0 = 1
+    | n > 1 = fat(n-1) * n
+
