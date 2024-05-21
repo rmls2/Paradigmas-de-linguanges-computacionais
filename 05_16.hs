@@ -80,7 +80,7 @@ aplicaDuasVezes f x = f (f x)
 aplicaDuasVezes2 :: (Int -> Int) -> Int -> Int
 aplicaDuasVezes2 f x = (f.f) x
 
-
+-- compõe n vezes uma função
 iter :: Int -> (t->t) -> (t -> t)
 iter 0 f    = id 
 iter n f    = (iter (n-1) f ) . f 
@@ -92,4 +92,3 @@ iter 3 not
 = ((iter 0 not). not.not.not
 = id. not.not.not
 -}
-
