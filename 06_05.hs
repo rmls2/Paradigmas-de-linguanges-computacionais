@@ -75,3 +75,10 @@ data Expr = Lit Int
             | Add Expr Expr
             | Sub Expr Expr
              deriving (Show, Eq)
+
+-- como é que eu faço uma função de avaliação de expressões? 
+
+eval :: Expr -> Int 
+eval (lit n)     = n 
+eval (Add e1 e2) = eval e1 + eval e2 
+eval (Sub e1 e2) = eval e1 - eval e2 
