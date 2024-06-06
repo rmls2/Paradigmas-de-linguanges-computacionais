@@ -79,6 +79,14 @@ data Expr = Lit Int
 -- como é que eu faço uma função de avaliação de expressões? 
 
 eval :: Expr -> Int 
-eval (lit n)     = n 
+eval (Lit n)     = n 
 eval (Add e1 e2) = eval e1 + eval e2 
 eval (Sub e1 e2) = eval e1 - eval e2 
+
+
+
+showExpr :: Expr -> String
+showExpr (Lit n)    = show n 
+showExpr (Add e1 e2)    = "(" ++ showExpr e1 ++ "+" ++ showExpr e2 ++ ")"
+showExpr (Sub e1 e2)    = "(" ++ showExpr e1 ++ "-" ++ showExpr e2 ++ ")"
+
