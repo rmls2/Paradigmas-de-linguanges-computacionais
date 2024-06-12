@@ -43,3 +43,9 @@ fat n
     | n==0 = 1
     | n > 1 = fat(n-1) * n
 
+offset = fromEnum 'A' - fromEnum 'a'
+maiuscula :: Char -> Char
+maiuscula ch = toEnum (fromEnum ch + offset )
+
+--pra importar a blioteca Data.Cahr pra o modulo só usar "import Data.Char "
+-- :m + Data.Char --(Importar funções)
