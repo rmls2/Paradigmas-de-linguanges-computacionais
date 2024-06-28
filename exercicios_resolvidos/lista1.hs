@@ -1,80 +1,101 @@
--- q exponencial 
+-- -- q exponencial 
 
 
 
--- q mdc 
+-- -- q mdc 
 
--- main = do
---    a <- readLn
---    b <- readLn
---    print (mdc (a :: Int) (b :: Int))
+-- -- main = do
+-- --    a <- readLn
+-- --    b <- readLn
+-- --    print (mdc (a :: Int) (b :: Int))
   
--- mdc :: Int -> Int -> Int
--- mdc a 0 = a 
--- mdc a b = mdc b (mod a m )
+-- -- mdc :: Int -> Int -> Int
+-- -- mdc a 0 = a 
+-- -- mdc a b = mdc b (mod a m )
 
--- q4
-maxTres :: Integer -> Integer -> Integer -> Integer
-maxTres x y z
-    | x >= y && x >= z  = x
-    | y >= z            = y
-    | otherwise         = z
+-- -- q4
+-- maxTres :: Integer -> Integer -> Integer -> Integer
+-- maxTres x y z
+--     | x >= y && x >= z  = x
+--     | y >= z            = y
+--     | otherwise         = z
 
-maxFor :: Integer -> Integer -> Integer -> Integer -> Integer
-maxFor m n p q
-    | m >= n && m >= p && m >= q = m
-    | n >= p && n>=q             = n
-    | p >= q                     = p
-    | otherwise                  = q
+-- maxFor :: Integer -> Integer -> Integer -> Integer -> Integer
+-- maxFor m n p q
+--     | m >= n && m >= p && m >= q = m
+--     | n >= p && n>=q             = n
+--     | p >= q                     = p
+--     | otherwise                  = q
 
-maxFor' :: Integer -> Integer -> Integer -> Integer -> Integer
-maxFor' m n p q
- | m >= (max n p)  && m >= (max p q )  = m 
- | n >= (max m p)  && n >= (max m q)   = n
- | p >= (max m n)  && p >= (max n q)   = p
- | otherwise                           = q
+-- maxFor' :: Integer -> Integer -> Integer -> Integer -> Integer
+-- maxFor' m n p q
+--  | m >= (max n p)  && m >= (max p q )  = m 
+--  | n >= (max m p)  && n >= (max m q)   = n
+--  | p >= (max m n)  && p >= (max n q)   = p
+--  | otherwise                           = q
 
-maxFor'' :: Integer -> Integer -> Integer -> Integer -> Integer
-maxFor'' m n p q = max m (maxTres n p q)
-
-
--- q Quantas divisões exatas
-
-numDiv:: Integral a => a -> a -> a
-numDiv a b 
- | a < b        = 0
- | mod a b == 0 = 1 + numDiv (div a b) b 
- | otherwise    = 0
+-- maxFor'' :: Integer -> Integer -> Integer -> Integer -> Integer
+-- maxFor'' m n p q = max m (maxTres n p q)
 
 
+-- -- q Quantas divisões exatas
 
--- q Lista de Primos em uma faixa
+-- numDiv:: Integral a => a -> a -> a
+-- numDiv a b 
+--  | a < b        = 0
+--  | mod a b == 0 = 1 + numDiv (div a b) b 
+--  | otherwise    = 0
 
 
 
+-- -- q Lista de Primos em uma faixa
 
 
--- q final 
-main = do
-  x <- getLine
-  y <- getLine
-  print $ merge (map (read :: String -> Int) (words x)) (map (read :: String -> Int) (words y))
 
 
-bubbleSort :: Ord a => [a] -> [a]
-bubbleSort [] = []  -- Lista vazia já está ordenada
-bubbleSort lista = bubbleSort' lista (length lista)
 
-bubbleSort' :: Ord a => [a] -> Int -> [a]
-bubbleSort' lista 0 = lista  -- Nenhuma troca necessária
-bubbleSort' lista n = bubbleSort' (trocar lista) (n - 1)
-  where
-    trocar [x] = [x]
-    trocar (x:y:zs)
-      | x > y     = y : trocar (x:zs)
-      | otherwise = x : trocar (y:zs)
+-- -- q final 
+-- main = do
+--   x <- getLine
+--   y <- getLine
+--   print $ merge (map (read :: String -> Int) (words x)) (map (read :: String -> Int) (words y))
+
+
+-- bubbleSort :: Ord a => [a] -> [a]
+-- bubbleSort [] = []  -- Lista vazia já está ordenada
+-- bubbleSort lista = bubbleSort' lista (length lista)
+
+-- bubbleSort' :: Ord a => [a] -> Int -> [a]
+-- bubbleSort' lista 0 = lista  -- Nenhuma troca necessária
+-- bubbleSort' lista n = bubbleSort' (trocar lista) (n - 1)
+--   where
+--     trocar [x] = [x]
+--     trocar (x:y:zs)
+--       | x > y     = y : trocar (x:zs)
+--       | otherwise = x : trocar (y:zs)
      
-merge :: Ord a => [a] -> [a] -> [a]
-merge (x:xs) [] = (x:xs)
-merge [] (y:ys) = (y:ys)
-merge l m = bubbleSort(l ++ m)
+-- merge :: Ord a => [a] -> [a] -> [a]
+-- merge (x:xs) [] = (x:xs)
+-- merge [] (y:ys) = (y:ys)
+-- merge l m = bubbleSort(l ++ m)
+
+perfeitos :: Integer -> [Integer]
+perfeitos n  = [x | x <- [1..n], x == sum( map(^2) (fatores x))] ++ [1]
+
+-- Função para verificar se um número é primo
+ehPrimo :: Integer -> Bool
+ehPrimo k
+    | k <= 1 = False
+    | k == 2 = True
+    | otherwise = null [ x | x <- [2..isqrt k], k `mod` x == 0 ]
+    where
+      isqrt :: Integer -> Integer
+      isqrt = floor . sqrt . fromIntegral
+
+-- Função para obter todos os divisores de um número
+divisors :: Integer -> [Integer]
+divisors n = [x | x <- [1..n], n `mod` x == 0]
+
+-- Função para obter os divisores primos de um número
+fatores :: Integer -> [Integer]
+fatores n = [x | x <- divisors n, ehPrimo x]
