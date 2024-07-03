@@ -1,4 +1,4 @@
---q1
+--Q1
 functa:: [Int] -> [Int]
 functa [x] = []
 functa (x:y:ys) = if x == y then x: functa(y:ys) else functa(y:ys)
@@ -22,7 +22,7 @@ mfoldr         f           v    [ ]  = v
 mfoldr         f           v   (x:xs) = f x (mfoldr f v xs)
  
 
---Q 2
+--Q2
 
 --Recursão
 testaElementos :: (a -> Bool) -> [a] -> Bool
@@ -36,3 +36,10 @@ testaElementos2 f xs = and (map f xs)
 --foldr
 testaElementos3 :: (a -> Bool) -> [a] -> Bool
 testaElementos3 f = foldr (\x acc -> f x && acc) True
+
+-- Q3 
+sublistas :: [a] -> [[a]]
+sublistas []      =  [[]]
+sublistas (x:xs)  =  [ x:ys | ys <- sublistas xs ] ++ sublistas xs
+
+
